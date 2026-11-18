@@ -1,0 +1,42 @@
+==============================================================
+LAPORAN PENGUJIAN UNIT - APLIKASI AKADEMIK DAN KRS
+==============================================================
+Waktu eksekusi      : 0.026 detik
+Jumlah test case    : 23
+Lulus               : 23
+Gagal (failure)     : 0
+Error               : 0
+Dilewati (skipped)  : 0
+Status akhir        : LULUS
+==============================================================
+
+DETAIL EKSEKUSI
+--------------------------------------------------------------
+test_dimensi_tidak_positif_ditolak (tests.test_akademik.TestHitungLuasPersegiPanjang.test_dimensi_tidak_positif_ditolak) ... ok
+test_luas_4_kali_5_adalah_20 (tests.test_akademik.TestHitungLuasPersegiPanjang.test_luas_4_kali_5_adalah_20) ... ok
+test_luas_dengan_bilangan_desimal (tests.test_akademik.TestHitungLuasPersegiPanjang.test_luas_dengan_bilangan_desimal) ... ok
+test_tc_r1_tagihan_normal_tanpa_diskon_tetap_benar (tests.test_akademik.TestHitungTagihan.test_tc_r1_tagihan_normal_tanpa_diskon_tetap_benar) ... ok
+test_tc_r2_diskon_mahasiswa_10_persen (tests.test_akademik.TestHitungTagihan.test_tc_r2_diskon_mahasiswa_10_persen) ... ok
+test_tc_r3_biaya_admin_tidak_ikut_didiskon (tests.test_akademik.TestHitungTagihan.test_tc_r3_biaya_admin_tidak_ikut_didiskon) ... ok
+test_tc_r4_diskon_100_persen_hanya_bayar_admin (tests.test_akademik.TestHitungTagihan.test_tc_r4_diskon_100_persen_hanya_bayar_admin) ... ok
+test_tc_r5_input_tidak_valid_ditolak (tests.test_akademik.TestHitungTagihan.test_tc_r5_input_tidak_valid_ditolak) ... ok
+test_kasus_batas_kelulusan (tests.test_akademik.TestStatusKelulusan.test_kasus_batas_kelulusan) ... ok
+test_nilai_di_luar_rentang_ditolak (tests.test_akademik.TestStatusKelulusan.test_nilai_di_luar_rentang_ditolak) ... ok
+test_tipe_data_bukan_angka_ditolak (tests.test_akademik.TestStatusKelulusan.test_tipe_data_bukan_angka_ditolak) ... ok
+test_kegagalan_database_diteruskan_ke_pemanggil (tests.test_krs.TestAjukanKRS.test_kegagalan_database_diteruskan_ke_pemanggil) ... ok
+test_krs_valid_disimpan_dengan_payload_benar (tests.test_krs.TestAjukanKRS.test_krs_valid_disimpan_dengan_payload_benar) ... ok
+test_mahasiswa_tidak_aktif_ditolak_tanpa_menyimpan (tests.test_krs.TestAjukanKRS.test_mahasiswa_tidak_aktif_ditolak_tanpa_menyimpan) ... ok
+test_mahasiswa_tidak_ditemukan (tests.test_krs.TestAjukanKRS.test_mahasiswa_tidak_ditemukan) ... ok
+test_mata_kuliah_duplikat_ditolak (tests.test_krs.TestAjukanKRS.test_mata_kuliah_duplikat_ditolak) ... ok
+test_mata_kuliah_tidak_ada_di_kurikulum (tests.test_krs.TestAjukanKRS.test_mata_kuliah_tidak_ada_di_kurikulum) ... ok
+test_prasyarat_belum_lulus_ditolak (tests.test_krs.TestAjukanKRS.test_prasyarat_belum_lulus_ditolak) ... ok
+test_sks_melebihi_batas_ditolak (tests.test_krs.TestAjukanKRS.test_sks_melebihi_batas_ditolak) ... ok
+test_batas_beban_sks (tests.test_krs.TestFungsiDasarKRS.test_batas_beban_sks) ... ok
+test_hitung_total_sks (tests.test_krs.TestFungsiDasarKRS.test_hitung_total_sks) ... ok
+test_prasyarat (tests.test_krs.TestFungsiDasarKRS.test_prasyarat) ... ok
+test_status_aktif (tests.test_krs.TestFungsiDasarKRS.test_status_aktif) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.001s
+
+OK

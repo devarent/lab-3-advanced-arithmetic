@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Praktikum 3 - Instruksi Aritmatika dan Logika Lanjutan</title>
+<style>
+@page { size: A4; margin: 18mm 20mm; }
+body { font-family: Calibri, Arial, sans-serif; color: #172033; font-size: 11pt; line-height: 1.38; }
+h1, h2, h3 { color: #17365d; }
+h1 { font-size: 25pt; margin: 0 0 8pt; }
+h2 { font-size: 17pt; margin: 0 0 8pt; }
+h3 { font-size: 12pt; margin: 13pt 0 5pt; }
+p { margin: 5pt 0; }
+.cover { height: 245mm; display: flex; flex-direction: column; justify-content: center; text-align: center; page-break-after: always; }
+.cover .label { font-size: 14pt; letter-spacing: 2px; color: #4472c4; font-weight: bold; }
+.cover h1 { margin-top: 28pt; }
+.cover .subtitle { font-size: 17pt; margin: 0 auto 30pt; max-width: 470pt; }
+.identity { width: 76%; margin: 15pt auto; border-collapse: collapse; text-align: left; }
+.identity td { padding: 8pt 10pt; border-bottom: 1px solid #cbd5e1; }
+.identity td:first-child { width: 34%; font-weight: bold; color: #334155; }
+.section { page-break-before: always; }
+.intro { color: #475569; }
+.code { font-family: Consolas, "Courier New", monospace; font-size: 9.5pt; line-height: 1.25; white-space: pre; background: #f1f5f9; border: 1px solid #cbd5e1; padding: 10pt; }
+.debug { font-family: Consolas, "Courier New", monospace; font-size: 9pt; white-space: pre-wrap; background: #f8fafc; border-left: 3px solid #4472c4; padding: 8pt 10pt; }
+table.listing, table.trace { width: 100%; border-collapse: collapse; margin: 8pt 0; font-size: 9.5pt; }
+table.listing th, table.listing td, table.trace th, table.trace td { border: 1px solid #cbd5e1; padding: 5pt 6pt; text-align: left; vertical-align: top; }
+table.listing th, table.trace th { background: #e8eef7; color: #17365d; }
+table.listing td:first-child { font-family: Consolas, "Courier New", monospace; width: 12%; }
+table.listing td:nth-child(2) { font-family: Consolas, "Courier New", monospace; width: 18%; }
+table.listing td:nth-child(3) { font-family: Consolas, "Courier New", monospace; width: 24%; }
+.callout { background: #fff7e6; border: 1px solid #f1cf82; padding: 8pt 10pt; margin: 8pt 0; }
+.result { background: #edf7ed; border: 1px solid #a9d3a9; padding: 8pt 10pt; margin: 8pt 0; }
+.screenshot { border: 1.5px dashed #7b8794; background: #fbfcfe; min-height: 55pt; padding: 10pt; margin-top: 7pt; color: #475569; }
+.small { font-size: 9pt; color: #475569; }
+ul { margin-top: 4pt; }
+</style>
+</head>
+<body>
+<section class="cover">
+  <div class="label">LAPORAN PRAKTIKUM</div>
+  <h1>INSTRUKSI ARITMATIKA<br>DAN LOGIKA LANJUTAN</h1>
+  <p class="subtitle">Praktikum 3 — Example 5-15 dan Example 5-19</p>
+  <table class="identity">
+    <tr><td>Nama</td><td>Muhammad Arya Fatthurahman</td></tr>
+    <tr><td>NPM</td><td>2023230006</td></tr>
+    <tr><td>Program Studi</td><td>Teknologi Informasi</td></tr>
+    <tr><td>Kelompok NIM</td><td>Ganjil</td></tr>
+    <tr><td>Tanggal penyelesaian</td><td>6 November 2026</td></tr>
+  </table>
+  <p class="small">Mata kuliah: Organisasi dan Arsitektur Komputer</p>
+</section>
+
+<section class="section">
+  <h2>Example 5-15 — Pembagian Bilangan Bertanda</h2>
+  <p class="intro">Program ini menyiapkan bilangan −100 sebagai dividend 32-bit, lalu membaginya dengan 9 menggunakan pembagian bertanda. Hasil bagi disimpan di AX dan sisa pembagian di DX.</p>
+  <h3>Listing instruksi</h3>
+  <table class="listing">
+    <tr><th>Offset</th><th>Byte</th><th>Instruksi</th><th>Maksud</th></tr>
+    <tr><td>0000</td><td>B8 FF9C</td><td>MOV AX,FF9C</td><td>Memuat FF9C ke AX. Dalam representasi komplemen dua 16-bit, FF9C adalah −100. Di buku, operand ditulis −100 desimal.</td></tr>
+    <tr><td>0003</td><td>B9 0009</td><td>MOV CX,0009</td><td>Memuat pembagi 9 ke register CX.</td></tr>
+    <tr><td>0006</td><td>99</td><td>CWD</td><td>Memperluas tanda AX ke DX:AX. Karena AX negatif, DX menjadi FFFF.</td></tr>
+    <tr><td>0007</td><td>F7 F9</td><td>IDIV CX</td><td>Membagi bilangan bertanda 32-bit DX:AX dengan CX; hasil bagi masuk AX dan sisa masuk DX.</td></tr>
+  </table>
+  <h3>Program lengkap untuk DEBUG</h3>
+  <div class="code">A 100
+MOV AX,FF9C
+MOV CX,0009
+CWD
+IDIV CX
+[tekan Enter pada baris kosong untuk mengakhiri perakitan]</div>
+  <div class="callout"><b>Catatan format angka:</b> DEBUG menerima konstanta assembler sebagai heksadesimal. Karena itu gunakan <code>FF9C</code> (pola bit −100 desimal), bukan <code>-100</code> yang dapat dibaca sebagai −100 heksadesimal. Encoding di atas sama dengan instruksi buku <code>MOV AX,-100</code> yang menghasilkan byte <code>B8 FF9C</code>.</div>
+  <h3>Menampilkan, menjalankan, dan memeriksa hasil</h3>
+  <div class="debug">U 100 108
+G=100 109
+R</div>
+  <p><code>U</code> membongkar instruksi pada rentang 0100–0108; <code>G</code> menjalankan program sampai breakpoint pada alamat 0109; <code>R</code> menampilkan register setelah pembagian.</p>
+  <div class="result"><b>Hasil yang diharapkan:</b> AX = FFF5 (−11), DX = FFFF (−1), CX = 0009. Secara matematis, −100 = (−11 × 9) + (−1).</div>
+  <table class="trace">
+    <tr><th>Tahap</th><th>Nilai penting</th><th>Penjelasan</th></tr>
+    <tr><td>Sesudah MOV</td><td>AX=FF9C, CX=0009</td><td>AX berisi −100 dalam signed 16-bit.</td></tr>
+    <tr><td>Sesudah CWD</td><td>DX:AX=FFFF:FF9C</td><td>DX:AX adalah sign-extension −100 menjadi signed 32-bit.</td></tr>
+    <tr><td>Sesudah IDIV</td><td>AX=FFF5, DX=FFFF</td><td>Quotient −11 dan remainder −1; sisa mengikuti tanda dividend.</td></tr>
+  </table>
+  <h3>Screenshot DEBUG / DOSBox</h3>
+  <div class="screenshot">Tempatkan screenshot asli dari DOSBox di sini: listing hasil <code>U 100 108</code> dan hasil eksekusi/register dari <code>G=100 109</code> lalu <code>R</code>.</div>
+</section>
+
+<section class="section">
+  <h2>Example 5-19 — Pengurangan BCD</h2>
+  <p class="intro">Program mengurangkan bilangan packed BCD 1234 dari 3099. Instruksi DAS menyesuaikan hasil pengurangan biner per byte menjadi representasi BCD yang benar.</p>
+  <h3>Listing instruksi</h3>
+  <table class="listing">
+    <tr><th>Offset</th><th>Byte</th><th>Instruksi</th><th>Maksud</th></tr>
+    <tr><td>0000</td><td>BA 1234</td><td>MOV DX,1234</td><td>Menyimpan operand 1234h di DX; DH=12h dan DL=34h.</td></tr>
+    <tr><td>0003</td><td>BB 3099</td><td>MOV BX,3099</td><td>Menyimpan packed BCD 3099h di BX; BH=30h dan BL=99h.</td></tr>
+    <tr><td>0006</td><td>8A C3</td><td>MOV AL,BL</td><td>Menyalin byte rendah operand pertama (99h) ke AL.</td></tr>
+    <tr><td>0008</td><td>2A C2</td><td>SUB AL,DL</td><td>Mengurangkan 34h dari AL: 99h−34h menghasilkan 65h.</td></tr>
+    <tr><td>000A</td><td>2F</td><td>DAS</td><td>Menyesuaikan hasil pengurangan AL agar menjadi packed BCD. Hasil tetap 65h.</td></tr>
+    <tr><td>000B</td><td>8A C8</td><td>MOV CL,AL</td><td>Menyimpan byte hasil rendah (65h) ke CL.</td></tr>
+    <tr><td>000D</td><td>8A C7</td><td>MOV AL,BH</td><td>Memuat byte tinggi operand pertama (30h) ke AL.</td></tr>
+    <tr><td>000F</td><td>1A C6</td><td>SBB AL,DH</td><td>Mengurangkan DH dan borrow (CF) dari AL; 30h−12h menghasilkan 1Eh.</td></tr>
+    <tr><td>0011</td><td>2F</td><td>DAS</td><td>Menyesuaikan 1Eh menjadi 18h dalam packed BCD.</td></tr>
+    <tr><td>0012</td><td>8A E8</td><td>MOV CH,AL</td><td>Menyimpan byte hasil tinggi (18h) ke CH.</td></tr>
+  </table>
+  <h3>Program lengkap untuk DEBUG</h3>
+  <div class="code">A 100
+MOV DX,1234
+MOV BX,3099
+MOV AL,BL
+SUB AL,DL
+DAS
+MOV CL,AL
+MOV AL,BH
+SBB AL,DH
+DAS
+MOV CH,AL
+[tekan Enter pada baris kosong untuk mengakhiri perakitan]</div>
+  <h3>Menampilkan, menjalankan, dan memeriksa hasil</h3>
+  <div class="debug">U 100 113
+G=100 114
+R</div>
+  <p><code>U</code> menampilkan seluruh instruksi; program dijalankan dari 0100h sampai breakpoint 0114h. Periksa CX pada keluaran <code>R</code>.</p>
+  <div class="result"><b>Hasil yang diharapkan:</b> CX = 1865h. Byte tinggi CH=18h dan byte rendah CL=65h, sehingga hasil BCD adalah 1865. Ini sesuai dengan 3099 − 1234 = 1865.</div>
+  <table class="trace">
+    <tr><th>Tahap</th><th>Perhitungan</th><th>Hasil</th></tr>
+    <tr><td>Byte rendah</td><td>99h − 34h</td><td>65h; DAS mempertahankan 65h; disimpan di CL.</td></tr>
+    <tr><td>Byte tinggi</td><td>30h − 12h − CF(0)</td><td>1Eh; DAS mengoreksi menjadi 18h; disimpan di CH.</td></tr>
+    <tr><td>Gabungan</td><td>CH:CL</td><td>1865h (packed BCD).</td></tr>
+  </table>
+  <h3>Screenshot DEBUG / DOSBox</h3>
+  <div class="screenshot">Tempatkan screenshot asli dari DOSBox di sini: listing hasil <code>U 100 113</code> dan hasil eksekusi/register dari <code>G=100 114</code> lalu <code>R</code>.</div>
+</section>
+
+<section class="section">
+  <h2>Panduan singkat pengambilan screenshot</h2>
+  <ol>
+    <li>Buka DOSBox dan mount folder yang berisi <code>DEBUG.EXE</code>, lalu pindah ke drive tersebut. Contoh: <code>mount c "C:\folder\debug"</code>, kemudian <code>c:</code>.</li>
+    <li>Jalankan <code>debug</code>, rakit program dari alamat <code>100</code>, dan akhiri input assembler dengan Enter pada baris kosong.</li>
+    <li>Jalankan perintah <code>U</code> dan <code>G</code> yang tercantum di bagian masing-masing contoh; setelah program berhenti, ketik <code>R</code>.</li>
+    <li>Ambil screenshot jendela DOSBox yang menampilkan listing dan register, kemudian masukkan pada kotak screenshot contoh terkait di dokumen ini.</li>
+    <li>Simpan/export dokumen akhir sebagai PDF dengan format nama <code>Praktik3_nama_NIM_Ganjil.pdf</code>.</li>
+  </ol>
+  <p class="small"><b>Catatan:</b> Kotak screenshot pada laporan ini adalah placeholder, bukan bukti tangkapan layar. Isi dengan screenshot eksekusi DEBUG milik sendiri sebelum mengumpulkan tugas.</p>
+</section>
+</body>
+</html>

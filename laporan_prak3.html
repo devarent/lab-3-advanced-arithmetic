@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Praktikum 3 - Instruksi Aritmatika dan Logika Lanjutan</title>
+<style>
+  @page { size: A4; margin: 17mm 18mm 16mm 18mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Calibri, "Segoe UI", Arial, sans-serif; color: #1b2434; font-size: 10.5pt; line-height: 1.42; margin: 0; }
+  h1, h2, h3 { color: #16365c; margin: 0; }
+  h1 { font-size: 24pt; line-height: 1.15; }
+  h2 { font-size: 15.5pt; border-bottom: 2px solid #4472c4; padding-bottom: 3pt; margin-bottom: 8pt; }
+  h3 { font-size: 11.5pt; margin: 12pt 0 5pt; }
+  p { margin: 5pt 0; text-align: justify; }
+  ul, ol { margin: 4pt 0 4pt 16pt; padding: 0; }
+  li { margin: 2pt 0; }
+  code { font-family: Consolas, "Courier New", monospace; background: #eef2f8; padding: 0 2pt; border-radius: 2pt; }
+
+  .cover { height: 258mm; display: flex; flex-direction: column; justify-content: center; text-align: center; page-break-after: always; }
+  .cover .label { font-size: 12.5pt; letter-spacing: 2.5px; color: #4472c4; font-weight: bold; }
+  .cover h1 { margin: 20pt 0 6pt; }
+  .cover .subtitle { font-size: 14pt; color: #334155; margin-bottom: 26pt; }
+  .identity { width: 78%; margin: 0 auto; border-collapse: collapse; text-align: left; font-size: 11pt; }
+  .identity td { padding: 7pt 9pt; border-bottom: 1px solid #cbd5e1; }
+  .identity td:first-child { width: 36%; font-weight: bold; color: #334155; }
+  .cover .foot { margin-top: 30pt; font-size: 9.5pt; color: #64748b; }
+
+  .section { page-break-before: always; }
+  .lead { color: #475569; }
+
+  table { width: 100%; border-collapse: collapse; margin: 7pt 0 9pt; font-size: 9pt; }
+  th, td { border: 1px solid #c3cfdf; padding: 4.5pt 5.5pt; vertical-align: top; text-align: left; }
+  th { background: #e8eef7; color: #16365c; font-size: 8.8pt; }
+  tr { page-break-inside: avoid; }
+  table.listing td:nth-child(1) { font-family: Consolas, monospace; }
+  table.listing td:nth-child(2), table.listing td:nth-child(3) { font-family: Consolas, monospace; white-space: nowrap; }
+  table.listing td:nth-child(4) { font-family: Consolas, monospace; }
+
+  .code { font-family: Consolas, "Courier New", monospace; font-size: 9pt; white-space: pre; background: #f4f7fb; border: 1px solid #c3cfdf; border-left: 3px solid #4472c4; padding: 8pt 10pt; margin: 6pt 0 9pt; line-height: 1.35; }
+  .note { background: #fff8e8; border: 1px solid #efd08a; padding: 7pt 9pt; margin: 7pt 0; font-size: 9.6pt; }
+  .result { background: #eef8ef; border: 1px solid #a9d3a9; padding: 7pt 9pt; margin: 7pt 0; font-size: 9.8pt; }
+  .info { background: #eef4fb; border: 1px solid #b9cfe8; padding: 7pt 9pt; margin: 7pt 0; font-size: 9.6pt; }
+
+  figure { margin: 8pt 0 10pt; page-break-inside: avoid; }
+  figure img { max-width: 100%; height: auto; display: block; margin: 0 auto; border: 1px solid #8fa2b8; }
+  figcaption { font-size: 8.8pt; color: #475569; margin-top: 3pt; text-align: center; }
+
+  .small { font-size: 9pt; color: #475569; }
+  .avoid { page-break-inside: avoid; }
+  .footer-note { font-size: 8.6pt; color: #64748b; margin-top: 10pt; border-top: 1px solid #cbd5e1; padding-top: 5pt; }
+  @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="label">LAPORAN PRAKTIKUM</div>
+  <h1>INSTRUKSI ARITMATIKA<br>DAN LOGIKA LANJUTAN</h1>
+  <div class="subtitle">Praktikum 3 — Example 5-15 dan Example 5-19</div>
+  <table class="identity">
+    <tr><td>Nama</td><td>Muhammad Arya Fatthurahman</td></tr>
+    <tr><td>NPM</td><td>2023230006</td></tr>
+    <tr><td>Program Studi</td><td>Teknologi Informasi</td></tr>
+    <tr><td>Kelompok NIM</td><td>Ganjil</td></tr>
+    <tr><td>Mata Kuliah</td><td>Organisasi dan Arsitektur Komputer</td></tr>
+    <tr><td>Tanggal Penyelesaian</td><td>6 November 2026</td></tr>
+  </table>
+  <div class="foot">Program dijalankan dengan DEBUG.EXE pada DOSBox 0.74-3</div>
+</section>
+
+<section class="section">
+  <h2>Example 5-15 — Pembagian Bilangan Bertanda</h2>
+  <p class="lead">Program ini membagi bilangan bertanda −100 dengan 9 menggunakan instruksi <code>IDIV</code>.
+  Dividend disiapkan dalam pasangan register DX:AX, pembagi dimuat ke CX, lalu hasil bagi dan sisa diperiksa melalui register.</p>
+
+  <h3>Listing program</h3>
+  <table class="listing">
+    <tr><th>Offset</th><th>Byte</th><th>Instruksi</th><th>Maksud instruksi</th></tr>
+    <tr><td>0000</td><td>B8 FF9C</td><td>MOV AX,−100</td>
+        <td>Memuat −100 ke AX. Dalam komplemen dua 16-bit, −100 = FF9C. DEBUG menerima nilai ini sebagai <code>FF9C</code>.</td></tr>
+    <tr><td>0003</td><td>B9 0009</td><td>MOV CX,9</td>
+        <td>Memuat pembagi 9 ke register CX (CX = 0009).</td></tr>
+    <tr><td>0006</td><td>99</td><td>CWD</td>
+        <td><i>Convert Word to Doubleword</i>: memperluas tanda AX ke DX. Karena AX negatif, DX menjadi FFFF, sehingga DX:AX berisi −100 sebagai bilangan bertanda 32-bit.</td></tr>
+    <tr><td>0007</td><td>F7 F9</td><td>IDIV CX</td>
+        <td>Pembagian bertanda DX:AX ÷ CX. Hasil bagi disimpan di AX dan sisa di DX. IDIV membulatkan hasil bagi ke arah nol.</td></tr>
+  </table>
+
+  <div class="note"><b>Catatan penulisan −100 di DEBUG:</b> assembler DEBUG membaca konstanta sebagai heksadesimal, sehingga penulisan <code>−100</code> dapat dimaknai lain. Nilai yang diketik adalah <code>FF9C</code>, yaitu pola bit 16-bit dari −100 desimal; encoding yang dihasilkan sama dengan instruksi buku <code>MOV AX,−100</code> (B8 FF9C).</div>
+
+  <h3>Program lengkap yang dirakit di DEBUG</h3>
+  <div class="code">A 100
+MOV AX,FF9C
+MOV CX,0009
+CWD
+IDIV CX
+[Enter pada baris kosong untuk mengakhiri perakitan]</div>
+
+  <h3>Menampilkan dan menjalankan program</h3>
+  <div class="code">U 100 108      ; membongkar instruksi pada offset 0100–0108
+G=100 109      ; menjalankan sampai breakpoint 0109 (tepat setelah IDIV)
+R              ; menampilkan isi register</div>
+
+  <figure>
+    <img src="screenshots/15_listing_c.png" alt="Listing Example 5-15 di DEBUG">
+    <figcaption>Gambar 1. Listing Example 5-15 di DEBUG (perintah <code>U 100 108</code>)</figcaption>
+  </figure>
+
+  <h3>Hasil eksekusi</h3>
+  <div class="result"><b>AX = FFF5 (−11), DX = FFFF (−1), CX = 0009, IP = 0109.</b><br>
+  Secara matematis: (−11 × 9) + (−1) = −99 − 1 = <b>−100</b>. Jadi hasil bagi = −11 dan sisa = −1.</div>
+
+  <table>
+    <tr><th>Tahap</th><th>Nilai register</th><th>Penjelasan</th></tr>
+    <tr><td>Setelah MOV AX,FF9C</td><td>AX = FF9C</td><td>AX berisi −100 dalam format signed 16-bit (komplemen dua).</td></tr>
+    <tr><td>Setelah MOV CX,0009</td><td>CX = 0009</td><td>CX berisi pembagi 9.</td></tr>
+    <tr><td>Setelah CWD</td><td>DX = FFFF, AX = FF9C</td><td>DX:AX = FFFF:FF9C, yaitu −100 sebagai signed 32-bit.</td></tr>
+    <tr><td>Setelah IDIV CX</td><td>AX = FFF5, DX = FFFF</td><td>Hasil bagi −11 (FFF5) di AX, sisa −1 (FFFF) di DX. Sisa mengikuti tanda dividend.</td></tr>
+  </table>
+
+  <figure>
+    <img src="screenshots/15_result_regs.png" alt="Hasil eksekusi Example 5-15 di DEBUG">
+    <figcaption>Gambar 2. Hasil eksekusi Example 5-15 (perintah <code>G=100 109</code>); AX=FFF5 dan DX=FFFF</figcaption>
+  </figure>
+
+  <p class="small">Pembulatan IDIV: −100 ÷ 9 = −11,111… dipotong ke arah nol menjadi −11, sehingga sisanya −1 (bukan −12 dengan sisa +8). Inilah perilaku pembagian bertanda pada 8086.</p>
+
+  <h3>Pembahasan hasil</h3>
+  <p>DEBUG menampilkan isi register apa adanya dalam heksadesimal, bukan nilai desimal bertanda. Karena itu AX = FFF5 harus dibaca sebagai −11 dan DX = FFFF sebagai −1; keduanya adalah bentuk komplemen dua 16-bit, bukan bilangan positif 65525 dan 65535.</p>
+  <ul>
+    <li><b>IDIV tidak boleh diganti DIV.</b> Bila dipakai DIV, FF9Ch (65436) dibagi 9 memberi hasil 1C66h dengan sisa 0006h. Hasil itu sama sekali berbeda, sehingga operasi bertanda memang menuntut IDIV.</li>
+    <li><b>CWD wajib mendahului IDIV.</b> Tanpa CWD, DX masih berisi nilai lama sehingga pasangan DX:AX tidak lagi mewakili −100 dan pembagian menghasilkan nilai yang salah.</li>
+    <li><b>Arti baris flag.</b> DEBUG menampilkan NV UP EI PL NZ NA PO NC. Untuk DIV/IDIV, flag SF, ZF, AF, PF, CF, dan OF tidak didefinisikan, jadi baris tersebut tidak dipakai menilai hasil. Bukti hasil benar adalah program berhenti normal di breakpoint 0109 tanpa <i>divide overflow</i>, dengan AX = FFF5 dan DX = FFFF sesuai perhitungan.</li>
+  </ul>
+</section>
+
+<section class="section">
+  <h2>Example 5-19 — Pengurangan Bilangan BCD</h2>
+  <p class="lead">Program mengurangkan 1234 dari 3099 yang disimpan sebagai <i>packed BCD</i> (dua digit desimal per byte).
+  Pengurangan dikerjakan byte demi byte dari digit terendah, lalu instruksi <code>DAS</code> mengoreksi hasil biner agar menjadi BCD yang benar.</p>
+
+  <h3>Listing program</h3>
+  <table class="listing">
+    <tr><th>Offset</th><th>Byte buku</th><th>Byte DEBUG</th><th>Instruksi</th><th>Maksud instruksi</th></tr>
+    <tr><td>0000</td><td>BA 1234</td><td>BA 3412</td><td>MOV DX,1234</td>
+        <td>Menyimpan 1234h (packed BCD) di DX: DH = 12, DL = 34. DX adalah bilangan yang dikurangkan.</td></tr>
+    <tr><td>0003</td><td>BB 3099</td><td>BB 9930</td><td>MOV BX,3099</td>
+        <td>Menyimpan 3099h di BX: BH = 30, BL = 99. BX adalah bilangan yang dikurangi.</td></tr>
+    <tr><td>0006</td><td>8A C3</td><td>88 D8</td><td>MOV AL,BL</td>
+        <td>Menyalin byte rendah 3099 (99h) ke AL sebagai operand pengurangan pertama.</td></tr>
+    <tr><td>0008</td><td>2A C2</td><td>28 D0</td><td>SUB AL,DL</td>
+        <td>AL = AL − DL = 99h − 34h = 65h. Kedua digit masih sah, CF = 0.</td></tr>
+    <tr><td>000A</td><td>2F</td><td>2F</td><td>DAS</td>
+        <td><i>Decimal Adjust after Subtraction</i>: menyesuaikan AL agar hasilnya BCD. Karena 65h sah, AL tidak berubah.</td></tr>
+    <tr><td>000B</td><td>8A C8</td><td>88 C1</td><td>MOV CL,AL</td>
+        <td>Menyimpan digit hasil bagian rendah (65h) ke CL.</td></tr>
+    <tr><td>000D</td><td>8A C7</td><td>88 F8</td><td>MOV AL,BH</td>
+        <td>Memuat byte tinggi 3099 (30h) ke AL untuk pengurangan digit tinggi.</td></tr>
+    <tr><td>000F</td><td>1A C6</td><td>18 F0</td><td>SBB AL,DH</td>
+        <td>AL = AL − DH − CF = 30h − 12h − 0 = 1Eh. SBB ikut mengurangi borrow (CF) dari pengurangan byte rendah.</td></tr>
+    <tr><td>0011</td><td>2F</td><td>2F</td><td>DAS</td>
+        <td>Mengoreksi 1Eh: digit rendah E &gt; 9, sehingga AL dikurangi 6 menjadi 18h dan CF = 1.</td></tr>
+    <tr><td>0012</td><td>8A E8</td><td>88 C5</td><td>MOV CH,AL</td>
+        <td>Menyimpan digit hasil bagian tinggi (18h) ke CH, sehingga CX = 1865h.</td></tr>
+  </table>
+
+  <div class="info"><b>Mengapa byte DEBUG berbeda dari buku?</b> Untuk operasi antar-register, 8086 menyediakan dua bentuk encoding yang setara:
+  bentuk <code>8A/2A/1A</code> (register tujuan lebih dulu, dipakai buku/MASM) dan bentuk <code>88/28/18</code> (register sumber lebih dulu, dipilih assembler DEBUG).
+  Keduanya menghasilkan instruksi yang sama; contoh <code>88 D8</code> ≡ <code>8A C3</code> ≡ <code>MOV AL,BL</code>. Karena itu hasil eksekusinya identik.</div>
+
+  <h3>Program lengkap yang dirakit di DEBUG</h3>
+  <div class="code">A 100
+MOV DX,1234
+MOV BX,3099
+MOV AL,BL
+SUB AL,DL
+DAS
+MOV CL,AL
+MOV AL,BH
+SBB AL,DH
+DAS
+MOV CH,AL
+[Enter pada baris kosong untuk mengakhiri perakitan]</div>
+
+  <h3>Menampilkan dan menjalankan program</h3>
+  <div class="code">U 100 113      ; membongkar seluruh instruksi 0100–0113
+G=100 114      ; menjalankan sampai breakpoint 0114
+R              ; menampilkan isi register</div>
+
+  <figure>
+    <img src="screenshots/19_listing_c.png" alt="Listing Example 5-19 di DEBUG">
+    <figcaption>Gambar 3. Listing Example 5-19 di DEBUG (perintah <code>U 100 113</code>)</figcaption>
+  </figure>
+
+  <h3>Hasil eksekusi</h3>
+  <div class="result"><b>CX = 1865h, CH = 18h, CL = 65h.</b><br>
+  3099 − 1234 = <b>1865</b>, sehingga hasil pengurangan BCD sudah benar.</div>
+
+  <table>
+    <tr><th>Tahap</th><th>Perhitungan</th><th>Hasil</th></tr>
+    <tr><td>Digit rendah</td><td>99h − 34h = 65h; CF = 0</td><td>DAS tidak mengubah AL; CL = 65h.</td></tr>
+    <tr><td>Digit tinggi</td><td>30h − 12h − CF(0) = 1Eh</td><td>DAS: 1Eh − 06h = 18h; CH = 18h.</td></tr>
+    <tr><td>Gabungan</td><td>CH:CL = 18:65</td><td>CX = 1865h (packed BCD), sesuai 3099 − 1234.</td></tr>
+  </table>
+
+  <figure>
+    <img src="screenshots/19_result_regs.png" alt="Hasil eksekusi Example 5-19 di DEBUG">
+    <figcaption>Gambar 4. Hasil eksekusi Example 5-19 (perintah <code>G=100 114</code>); CX=1865</figcaption>
+  </figure>
+</section>
+
+<section class="section">
+  <h2>Penjelasan Instruksi dan Perintah DEBUG</h2>
+
+  <h3>Instruksi prosesor yang digunakan</h3>
+  <table>
+    <tr><th>Instruksi</th><th>Fungsi</th></tr>
+    <tr><td>MOV</td><td>Memindahkan data (salin) dari sumber ke tujuan; sumber tidak berubah.</td></tr>
+    <tr><td>CWD</td><td>Memperluas tanda AX ke DX sehingga terbentuk dividend 32-bit bertanda pada DX:AX (DX = 0000 bila AX positif, FFFF bila AX negatif).</td></tr>
+    <tr><td>IDIV</td><td>Pembagian bertanda. DX:AX dibagi operand; hasil bagi di AX, sisa di DX. Pembulatan ke arah nol.</td></tr>
+    <tr><td>SUB</td><td>Pengurangan biner biasa: tujuan = tujuan − sumber; memengaruhi CF, ZF, SF, OF, AF, PF.</td></tr>
+    <tr><td>SBB</td><td>Pengurangan dengan borrow: tujuan = tujuan − sumber − CF. Dipakai agar borrow dari byte rendah ikut diperhitungkan.</td></tr>
+    <tr><td>DAS</td><td>Menyesuaikan AL setelah pengurangan agar berisi packed BCD yang sah. Jika digit rendah &gt; 9 atau AF = 1, AL dikurangi 6; jika hasil &gt; 9Fh atau CF = 1, AL dikurangi 60h dan CF diset.</td></tr>
+  </table>
+
+  <h3>Perintah DEBUG yang dipakai</h3>
+  <table>
+    <tr><th>Perintah</th><th>Kegunaan</th></tr>
+    <tr><td>A 100</td><td><i>Assemble</i>: merakit instruksi mulai alamat 0100h. Baris kosong (Enter) mengakhiri perakitan.</td></tr>
+    <tr><td>U 100 108</td><td><i>Unassemble</i>: menampilkan kode mesin dan instruksi pada rentang alamat tertentu.</td></tr>
+    <tr><td>G=100 109</td><td><i>Go</i>: menjalankan program mulai 0100h dan berhenti di breakpoint 0109h, lalu menampilkan register.</td></tr>
+    <tr><td>R</td><td>Menampilkan isi register dan flag prosesor.</td></tr>
+    <tr><td>Q</td><td>Keluar dari DEBUG dan kembali ke prompt DOS.</td></tr>
+  </table>
+
+  <h3>Kesimpulan</h3>
+  <div class="avoid">
+  <ul>
+    <li>Operasi bertanda memerlukan persiapan khusus: <code>CWD</code> mengubah dividend 16-bit menjadi 32-bit bertanda sebelum <code>IDIV</code>, dan hasil bagi mengikuti aturan pembulatan ke arah nol.</li>
+    <li>Pengurangan BCD tidak cukup dengan <code>SUB</code> saja; <code>DAS</code> diperlukan untuk mengoreksi tiap byte agar menghasilkan digit desimal yang benar.</li>
+    <li>Pada pengurangan multi-byte, <code>SBB</code> wajib digunakan pada byte berikutnya agar borrow (CF) dari byte rendah ikut dikurangkan.</li>
+    <li>DEBUG dapat merakit instruksi 8086 secara langsung, tetapi memilih bentuk encoding yang setara dengan buku (88/28/18 bukan 8A/2A/1A). Hasil eksekusi tetap sama.</li>
+  </ul>
+  </div>
+
+  <div class="footer-note">
+    Seluruh screenshot diambil langsung dari jendela DOSBox 0.74-3 yang menjalankan DEBUG.EXE.
+    Berkas laporan: Praktik3_Muhammad_Arya_Fatthurahman_2023230006_Ganjil.pdf
+  </div>
+</section>
+
+</body>
+</html>
