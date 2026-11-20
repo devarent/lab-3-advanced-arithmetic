@@ -36,7 +36,7 @@ lab-3-advanced-arithmetic is a hands-on repository focused on: Praktikum 3 - ari
 <!-- dbx-style-kit -->
 <div align="center">
 
-<img src="https://img.shields.io/badge/praktikum-3-aritmatika-instruksi-lanjutan-1f6feb?style=for-the-badge" alt="praktikum-3-aritmatika-instruksi-lanjutan" />
+<img src="https://img.shields.io/badge/lab-3-advanced-arithmetic-1f6feb?style=for-the-badge" alt="lab-3-advanced-arithmetic" />
 <img src="https://img.shields.io/badge/LANG%20HTML-3178c6?style=for-the-badge" alt="LANG HTML" />
 <img src="https://img.shields.io/badge/STARS%200-eab308?style=for-the-badge" alt="STARS 0" />
 <img src="https://img.shields.io/badge/LICENSE%20MIT-22c55e?style=for-the-badge" alt="LICENSE MIT" />
@@ -59,7 +59,7 @@ lab-3-advanced-arithmetic is a hands-on repository focused on: Praktikum 3 - ari
 
 🧮
 
-# praktikum-3-aritmatika-instruksi-lanjutan
+# lab-3-advanced-arithmetic
 
 **Praktikum 3 - aritmatika dan instruksi lanjutan pada mikroprosesor.**
 
@@ -80,7 +80,7 @@ Praktikum 3 - aritmatika dan instruksi lanjutan pada mikroprosesor. Repositori i
 ## Project Structure
 
 ```text
-praktikum-3-aritmatika-instruksi-lanjutan/
+lab-3-advanced-arithmetic/
 |-- Jawaban Esai Pengujian Unit/
 |-- screenshots/
 |-- .gitignore
@@ -92,8 +92,8 @@ praktikum-3-aritmatika-instruksi-lanjutan/
 ## Getting Started
 
 `ash
-git clone https://github.com/devarent/praktikum-3-aritmatika-instruksi-lanjutan.git
-cd praktikum-3-aritmatika-instruksi-lanjutan
+git clone https://github.com/devarent/lab-3-advanced-arithmetic.git
+cd lab-3-advanced-arithmetic
 `
 
 Ikuti petunjuk pada file dokumentasi di dalam repository untuk menyiapkan lingkungan pengembangan.
@@ -122,7 +122,7 @@ Proyek ini dilisensikan di bawah MIT License. Lihat file [LICENSE](LICENSE).
 
 ## Project Governance
 
-[![CI](https://github.com/devarent/praktikum-3-aritmatika-instruksi-lanjutan/actions/workflows/ci.yml/badge.svg)](https://github.com/devarent/praktikum-3-aritmatika-instruksi-lanjutan/actions/workflows/ci.yml)
+[![CI](https://github.com/devarent/lab-3-advanced-arithmetic/actions/workflows/ci.yml/badge.svg)](https://github.com/devarent/lab-3-advanced-arithmetic/actions/workflows/ci.yml)
 
 [Contributing](CONTRIBUTING.md) | [Security Policy](SECURITY.md) | [Code of Conduct](CODE_OF_CONDUCT.md)
 
